@@ -1,2 +1,2 @@
-# cub3d
-school 21
+# cub3D
+21 school

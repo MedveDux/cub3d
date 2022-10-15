@@ -34,13 +34,13 @@ int init_map(char *filename, t_data *data)
 	data->player.x_pos = 0;
 	data->player.y_pos = 0;
     fd = open(filename,  O_RDONLY, 0644);
-    data->map.map = malloc ((data->map.height + 1) * sizeof(int *));
+    data->map.map = malloc ((data->map.height) * sizeof(int *));
     line = get_next_line(fd);
     while (line)
     {
         if (*line == '1' || *line == ' ' || *line == '0')
         {
-            data->map.map[i] = malloc((data->map.width + 1) * sizeof(int));
+            data->map.map[i] = malloc((data->map.width) * sizeof(int));
             while (j < data->map.width)
             {
 				if (j > new_strlen(line) - 1)

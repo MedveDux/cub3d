@@ -31,7 +31,7 @@ void init_start_params(t_data *data, int i)
 	if (data->ray.rayDirY == 0)
 	   data->ray.deltaDistY = 1e30;
 	else
-	   data->ray.deltaDistY = fabs(1 / data->ray.rayDirX);
+	   data->ray.deltaDistY = fabs(1 / data->ray.rayDirY);
 }
 
 void	calculate_steps(t_data	*data)
@@ -77,7 +77,7 @@ void dda_algoritm(t_data	*data)
           data->ray.side = 1;
         }
 		//Check if ray has hit a wall
-        if(data->map.map[data->ray.mapX][data->ray.mapY] > 0) // приравнять к 1 в случае чего
+        if(data->map.map[data->ray.mapX][data->ray.mapY] == 1) // приравнять к 1 в случае чего /// х и y под большим вопросом
 			data->ray.hit = 1;
 	  }
 }
@@ -96,6 +96,43 @@ void	draw_func_helper(t_data *data)
 	if(data->ray.drawEnd >= SCALE)
 		data->ray.drawEnd = SCALE - 1;
 }
+void	prepare_func(t_data	*data)
+{
+	double	wall_x;
+
+	if (data->ray.side == 0)
+		wall_x = data->player.y_pos + data->ray.perpWallDist * data->ray.rayDirY;
+	else
+		wall_x = data->player.x_pos + data->ray.perpWallDist * data->ray.rayDirX;
+	wall_x -= floor(wall_x);
+	data->wall.tex_x = (int)(wall_x * (double)T_SIZE);
+	if (data->ray.side == 0 && data->ray.rayDirX > 0)
+		data->wall.tex_x = T_SIZE - data->wall.tex_x - 1;
+	if (data->ray.side == 1 && data->ray.rayDirY < 0)
+		 data->wall.tex_x = T_SIZE - data->wall.tex_x - 1;
+	data->wall.step = 1.0 * T_SIZE / data->ray.lineHeight;
+	data->wall.tex_pos = (data->ray.drawStart - SCALE / 2 + data->ray.lineHeight / 2) * data->wall.step;
+}
+
+
+void	draw_textures(t_data *data, int i)
+{
+	int	j;
+	char	*dest;
+
+	j = data->ray.drawStart;
+	prepare_func(data);
+
+	while (j <= data->ray.drawEnd)
+	{
+		data->wall.tex_y = (int)data->wall.tex_pos & (T_SIZE - 1);
+		data->wall.tex_pos += data->wall.step;
+		dest = (char *)data->img.data_addr + (j * data->img.size_line + i * (data->img.bpp / 8));
+		*(unsigned int *)dest = 25720;
+		j++;
+
+	}
+}
 
 void	draw_func(t_data *data)
 {
@@ -108,76 +145,7 @@ void	draw_func(t_data *data)
 		calculate_steps(data);
 		dda_algoritm(data);
 		draw_func_helper(data);
-		draw_twxtures(data, i);
-		
-		
-		
-		// switch (data->map.map[data->ray.mapX][data->ray.mapY])
-		// {
-		// 	case 1:
-		// 		// color;
-		// 		break;
-		// }
-// 3 строчки закоментил
-		// if(side == 1) 
-		// 	color = color / 2;
-		// verLine(i, drawStart, drawEnd, color); // write function
-
-		// oldTime = time;
-    	// time = getTicks();
-    	// double frameTime = (time - oldTime) / 1000.0; //frameTime is the time this frame has taken, in seconds
-    	// print(1.0 / frameTime); //FPS counter
-    	// redraw();
-    	// cls();
-
-		//speed modifiers
-    	// double moveSpeed = 5.0; //the constant value is in squares/second
-   	 	// double rotSpeed = 3.0; //the constant value is in radians/second
-		
-		
-//мой комент
-		//readKeys();
-
-
-// мой комент
-/*		if(keyDown(SDLK_UP))
-    	{
-      		if(data->map.map[(int)(data->player.x_pos + data->player.dir_x * moveSpeed)][(int)data->player.y_pos] == false)
-			  data->player.x_pos += data->player.dir_x * moveSpeed;
-      		if(data->map.map[(int)data->player.x_pos][(int)(data->player.y_pos + data->player.dir_y * moveSpeed)] == false)
-			  data->player.y_pos += data->player.dir_y * moveSpeed;
-    	}
-    	//move backwards if no wall behind you
-   		if(keyDown(SDLK_DOWN))
-    	{
-      		if(data->map.map[(int)(data->player.x_pos - data->player.dir_x  * moveSpeed)][(int)data->player.y_pos] == false)
-			  data->player.x_pos -= data->player.dir_x * moveSpeed;
-      		if(data->map.map[(int)data->player.x_pos][(int)(data->player.y_pos - data->player.dir_y * moveSpeed)] == false) 
-			  data->player.y_pos -= data->player.dir_y * moveSpeed;
-    	}
-    	//rotate to the right
-    	if(keyDown(SDLK_RIGHT))
-    	{
-      	//both camera direction and camera plane must be rotated
-      	double oldDirX = data->player.dir_x;
-      	data->player.dir_x = data->player.dir_x * cos(-rotSpeed) - data->player.dir_y * sin(-rotSpeed);
-      	data->player.dir_y = oldDirX * sin(-rotSpeed) + data->player.dir_y * cos(-rotSpeed);
-      	double oldPlaneX = data->player.plane_x;
-      	data->player.plane_x = data->player.plane_x * cos(-rotSpeed) - data->player.plane_y * sin(-rotSpeed);
-      	data->player.plane_y = oldPlaneX * sin(-rotSpeed) + data->player.plane_y * cos(-rotSpeed);
-    	}
-    	//rotate to the left
-    	if(keyDown(SDLK_LEFT))
-    	{
-      	//both camera direction and camera plane must be rotated
-      	double oldDirX = data->player.dir_x;
-      	data->player.dir_x = data->player.dir_x * cos(rotSpeed) - data->player.dir_y * sin(rotSpeed);
-      	data->player.dir_y = oldDirX * sin(rotSpeed) + data->player.dir_y  * cos(rotSpeed);
-      	double oldPlaneX = data->player.plane_x;
-      	data->player.plane_x = data->player.plane_x * cos(rotSpeed) - data->player.plane_y * sin(rotSpeed);
-      	data->player.plane_y = oldPlaneX * sin(rotSpeed) + data->player.plane_y * cos(rotSpeed);
-    	}
-*/
+		draw_textures(data, i);
 		i++;
 	}
 }
@@ -192,161 +160,7 @@ int	game_loop(t_data	*data)
 	draw_func(data);
 	mlx_put_image_to_window(data->mlx, data->win, data->img.img_ptr, 0, 0);
 	mlx_destroy_image(data->mlx, data->img.img_ptr);
-	return (0);
+	return (1);
 }
 
 
-
-// void	draw_func(t_data *data)
-// {
-// 	int i;
-	
-// 	i = 0;
-// 	while ( i < SCALE)
-// 	{
-// 		init_start_params(&data, i);
-// 		// data->ray.cameraX = 2 * i / (double)SCALE - 1;
-// 		// data->ray.rayDirX = data->player.dir_x + data->player.plane_x * data->ray.cameraX;
-// 		// data->ray.rayDirY = data->player.dir_y + data->player.plane_y * data->ray.cameraX;
-//       	// data->ray.mapX = (int)data->player.x_pos;
-//      	// data->ray.mapY = (int)data->player.y_pos;
-// 		// if (data->ray.rayDirX == 0)
-// 		// 	data->ray.deltaDistX = 1e30;
-// 		// else
-// 		// 	data->ray.deltaDistX = abs(1 / data->ray.rayDirX);
-// 	   	// if (data->ray.rayDirY == 0)
-// 		//    data->ray.deltaDistY = 1e30;
-// 	   	// else
-// 		//    data->ray.deltaDistY = abs(1 / data->ray.rayDirX);
-
-// 		calculate_steps(&data);
-// 	//    if( data->ray.rayDirX < 0)
-//     //   {
-//     //     data->ray.stepX = -1;
-//     //     data->ray.sideDistX = (data->player.x_pos -  data->ray.mapX) *  data->ray.deltaDistX;
-//     //   }
-//     //   else
-//     //   {
-//     //     data->ray.stepX = 1;
-//     //     data->ray.sideDistX = ( data->ray.mapX + 1.0 - data->player.x_pos) *  data->ray.deltaDistX;
-//     //   }
-//     //   if( data->ray.rayDirY < 0)
-//     //   {
-//     //     data->ray.stepY = -1;
-//     //     data->ray.sideDistY = (data->player.y_pos -  data->ray.mapY) *  data->ray.deltaDistY;
-//     //   }
-//     //   else
-//     //   {
-//     //     data->ray.stepY = 1;
-//     //     data->ray.sideDistY = ( data->ray.mapY + 1.0 - data->player.y_pos) *  data->ray.deltaDistY;
-//     //   }
-	
-// 	dda_algoritm(&data);
-// 	//   data->ray.hit = 0; 
-//     //   while(data->ray.hit == 0)
-//     //   {
-//     //     //jump to next map square, either in x-direction, or in y-direction
-//     //     if(data->ray.sideDistX < data->ray.sideDistY)
-//     //     {
-//     //       data->ray.sideDistX += data->ray.deltaDistX;
-//     //       data->ray.mapX += data->ray.stepX;
-//     //       data->ray.side = 0;
-//     //     }
-//     //     else
-//     //     {
-//     //       data->ray.sideDistY += data->ray.deltaDistY;
-//     //       data->ray.mapY += data->ray.stepY;
-//     //       data->ray.side = 1;
-//     //     }
-// 	// 	//Check if ray has hit a wall
-//     //     if(data->map.map[data->ray.mapX][data->ray.mapY] > 0) // приравнять к 1 в случае чего
-// 	// 		data->ray.hit = 1;
-// 	//   }
-
-// 	draw_func_helper(&data);
-// 		// next function
-// 	//   if(data->ray.side == 0)
-// 	//   	data->ray.perpWallDist = (data->ray.sideDistX - data->ray.deltaDistX);
-//     //   else
-// 	//   	data->ray.perpWallDist = (data->ray.sideDistY - data->ray.deltaDistY);
-
-// 	// 	data->ray.lineHeight = (int)(SCALE / data->ray.perpWallDist);
-// 	// 	data->ray.drawStart = -data->ray.lineHeight / 2 + SCALE / 2;
-// 	// 	if(data->ray.drawStart < 0)
-// 	// 		data->ray.drawStart = 0;
-// 	// 	data->ray.drawEnd = data->ray.lineHeight / 2 + SCALE / 2;
-// 	// 	if(data->ray.drawEnd >= SCALE)
-// 	// 		data->ray.drawEnd = SCALE - 1;
-		
-		
-		
-		
-// 		// switch (data->map.map[data->ray.mapX][data->ray.mapY])
-// 		// {
-// 		// 	case 1:
-// 		// 		// color;
-// 		// 		break;
-// 		// }
-// // 3 строчки закоментил
-// 		// if(side == 1) 
-// 		// 	color = color / 2;
-// 		// verLine(i, drawStart, drawEnd, color); // write function
-
-// 		// oldTime = time;
-//     	// time = getTicks();
-//     	// double frameTime = (time - oldTime) / 1000.0; //frameTime is the time this frame has taken, in seconds
-//     	// print(1.0 / frameTime); //FPS counter
-//     	// redraw();
-//     	// cls();
-
-// 		//speed modifiers
-//     	// double moveSpeed = 5.0; //the constant value is in squares/second
-//    	 	// double rotSpeed = 3.0; //the constant value is in radians/second
-		
-		
-// //мой комент
-// 		//readKeys();
-
-
-// // мой комент
-// /*		if(keyDown(SDLK_UP))
-//     	{
-//       		if(data->map.map[(int)(data->player.x_pos + data->player.dir_x * moveSpeed)][(int)data->player.y_pos] == false)
-// 			  data->player.x_pos += data->player.dir_x * moveSpeed;
-//       		if(data->map.map[(int)data->player.x_pos][(int)(data->player.y_pos + data->player.dir_y * moveSpeed)] == false)
-// 			  data->player.y_pos += data->player.dir_y * moveSpeed;
-//     	}
-//     	//move backwards if no wall behind you
-//    		if(keyDown(SDLK_DOWN))
-//     	{
-//       		if(data->map.map[(int)(data->player.x_pos - data->player.dir_x  * moveSpeed)][(int)data->player.y_pos] == false)
-// 			  data->player.x_pos -= data->player.dir_x * moveSpeed;
-//       		if(data->map.map[(int)data->player.x_pos][(int)(data->player.y_pos - data->player.dir_y * moveSpeed)] == false) 
-// 			  data->player.y_pos -= data->player.dir_y * moveSpeed;
-//     	}
-//     	//rotate to the right
-//     	if(keyDown(SDLK_RIGHT))
-//     	{
-//       	//both camera direction and camera plane must be rotated
-//       	double oldDirX = data->player.dir_x;
-//       	data->player.dir_x = data->player.dir_x * cos(-rotSpeed) - data->player.dir_y * sin(-rotSpeed);
-//       	data->player.dir_y = oldDirX * sin(-rotSpeed) + data->player.dir_y * cos(-rotSpeed);
-//       	double oldPlaneX = data->player.plane_x;
-//       	data->player.plane_x = data->player.plane_x * cos(-rotSpeed) - data->player.plane_y * sin(-rotSpeed);
-//       	data->player.plane_y = oldPlaneX * sin(-rotSpeed) + data->player.plane_y * cos(-rotSpeed);
-//     	}
-//     	//rotate to the left
-//     	if(keyDown(SDLK_LEFT))
-//     	{
-//       	//both camera direction and camera plane must be rotated
-//       	double oldDirX = data->player.dir_x;
-//       	data->player.dir_x = data->player.dir_x * cos(rotSpeed) - data->player.dir_y * sin(rotSpeed);
-//       	data->player.dir_y = oldDirX * sin(rotSpeed) + data->player.dir_y  * cos(rotSpeed);
-//       	double oldPlaneX = data->player.plane_x;
-//       	data->player.plane_x = data->player.plane_x * cos(rotSpeed) - data->player.plane_y * sin(rotSpeed);
-//       	data->player.plane_y = oldPlaneX * sin(rotSpeed) + data->player.plane_y * cos(rotSpeed);
-//     	}
-// */
-// 		i++;
-// 	}
-// }

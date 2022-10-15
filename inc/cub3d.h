@@ -20,7 +20,8 @@
 # include <math.h>
 # include "../src/get_next_line/get_next_line.h"//src
 # include "../minilibx/mlx.h"
-#  define SCALE 600
+# define SCALE 600
+# define T_SIZE 64
 
 enum e_keys_code
 {
@@ -100,6 +101,15 @@ typedef struct s_map
     int w;//0
 }   t_map;
 
+typedef	struct s_wall
+{
+	int	tex_x;
+	double step;
+	double tex_pos;
+	double tex_y;
+} t_wall;
+
+
 typedef struct s_data
 {
 	void		*mlx;
@@ -110,6 +120,7 @@ typedef struct s_data
     t_map   map;
 	t_keys	keys;
 	t_raycast	ray;
+	t_wall	wall;
 	// int screen_width;
 	// int	screen_height;
 }   t_data;

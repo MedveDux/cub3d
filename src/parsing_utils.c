@@ -33,12 +33,12 @@ int check_params(t_data *data, char *line)
         data->img.dir_names[0] = cut_line(line);
         data->img.flag++;
     }
-    else if (ft_strncmp(line, "WE", 2) == 0)
+    else if (ft_strncmp(line, "SO", 2) == 0)
     {
         data->img.dir_names[1] = cut_line(line);
         data->img.flag++;
     }
-    else if (ft_strncmp(line, "SO", 2) == 0)
+    else if (ft_strncmp(line, "WE", 2) == 0)
     {
         data->img.dir_names[2] = cut_line(line);
         data->img.flag++;

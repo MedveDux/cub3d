@@ -6,7 +6,7 @@
 /*   By: cyelena <cyelena@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 18:31:05 by cyelena           #+#    #+#             */
-/*   Updated: 2022/10/14 17:23:34 by cyelena          ###   ########.fr       */
+/*   Updated: 2022/10/16 15:24:04 by cyelena          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ typedef struct s_keys
 typedef struct s_img
 {
     char *dir_names[4];
-	int	*texturep[4]; // указатели на текстуры dir_names
+	char	*texture_addr[4]; // указатели на текстуры dir_names
+	void	*img_texturing_xpm[5];
     int flag;
     int color[2];
 	void		*img_ptr;
@@ -106,7 +107,7 @@ typedef	struct s_wall
 	int	tex_x;
 	double step;
 	double tex_pos;
-	double tex_y;
+	int tex_y;
 } t_wall;
 
 

@@ -114,12 +114,31 @@ void	prepare_func(t_data	*data)
 	data->wall.tex_pos = (data->ray.drawStart - SCALE / 2 + data->ray.lineHeight / 2) * data->wall.step;
 }
 
+int texturing(t_data *data, unsigned int *color)
+{
+
+	if (data->ray.side == 0)
+	{
+		if (data->ray.rayDirX >= 0)
+			*color = ((unsigned int *)data->img.texture_addr[3])[T_SIZE * data->wall.tex_y + data->wall.tex_x];
+		else
+			*color = ((unsigned int *)data->img.texture_addr[2])[T_SIZE * data->wall.tex_y + data->wall.tex_x];
+	}
+	else
+	{
+		if (data->ray.rayDirY >= 0)
+			*color = ((unsigned int *)data->img.texture_addr[1])[T_SIZE * data->wall.tex_y + data->wall.tex_x];
+		else
+			*color = ((unsigned int *)data->img.texture_addr[0])[T_SIZE * data->wall.tex_y + data->wall.tex_x];
+	}
+	return(*color);
+}
 
 void	draw_textures(t_data *data, int i)
 {
 	int	j;
 	char	*dest;
-
+	unsigned int color;
 	j = data->ray.drawStart;
 	prepare_func(data);
 
@@ -127,8 +146,9 @@ void	draw_textures(t_data *data, int i)
 	{
 		data->wall.tex_y = (int)data->wall.tex_pos & (T_SIZE - 1);
 		data->wall.tex_pos += data->wall.step;
+		color = texturing(data, &color);
 		dest = (char *)data->img.data_addr + (j * data->img.size_line + i * (data->img.bpp / 8));
-		*(unsigned int *)dest = 25720;
+		*(unsigned int *)dest = color;
 		j++;
 
 	}

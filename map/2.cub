@@ -1,9 +1,9 @@
-NO ./xpm/no.xpm
-SO ./xpm/so.xpm
+NO ./textures/north.xpm
+SO ./textures/south.xpm
 F             220,100,0
-WE   ./xpm/we.xpm
+WE   ./textures/west.xpm
 C    225,30,0
-EA    ./xpm/ea.xpm
+EA    ./textures/east.xpm
 
 
 

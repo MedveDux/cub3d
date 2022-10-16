@@ -6,7 +6,7 @@
 /*   By: cyelena <cyelena@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 18:30:45 by cyelena           #+#    #+#             */
-/*   Updated: 2022/10/14 16:52:01 by cyelena          ###   ########.fr       */
+/*   Updated: 2022/10/16 15:01:54 by cyelena          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int mlx_start(t_data *data)
 		return (EXIT_FAILURE);
 	}
 
-	// set_textures(data);
+	set_textures(data);
 	mlx_hook(data->win, 17, 0, esc, data);
 	mlx_hook(data->win, 2, 0, press, &data->keys);
 	// mlx_hook(data->win, 3, 0, unhold, &data->keys);

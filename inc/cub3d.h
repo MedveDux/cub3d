@@ -6,7 +6,7 @@
 /*   By: cyelena <cyelena@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 18:31:05 by cyelena           #+#    #+#             */
-/*   Updated: 2022/10/16 15:24:04 by cyelena          ###   ########.fr       */
+/*   Updated: 2022/10/16 16:23:28 by cyelena          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include "../minilibx/mlx.h"
 # define SCALE 600
 # define T_SIZE 64
+# define MS 0.25
 
 enum e_keys_code
 {
@@ -134,7 +135,7 @@ int	map_validation(t_data *data);
 
 //mlx hooks
 int	esc(t_data *data);
-int press(int key, t_keys *keys);
+int press(int key, t_data *data);
 int	unhold(int key, t_keys	*keys);
 int	game_loop(t_data	*data);
 

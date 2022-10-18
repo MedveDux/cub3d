@@ -141,7 +141,6 @@ void	draw_textures(t_data *data, int i)
 	unsigned int color;
 	j = data->ray.drawStart;
 	prepare_func(data);
-
 	while (j <= data->ray.drawEnd)
 	{
 		data->wall.tex_y = (int)data->wall.tex_pos & (T_SIZE - 1);

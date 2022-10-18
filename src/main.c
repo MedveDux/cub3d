@@ -34,8 +34,7 @@ int mlx_start(t_data *data)
 
 	set_textures(data);
 	mlx_hook(data->win, 17, 0, esc, data);
-	mlx_hook(data->win, 2, 0, press, &data->keys);
-	// mlx_hook(data->win, 3, 0, unhold, &data->keys);
+	mlx_hook(data->win, 2, 0, press, data);
 	mlx_loop_hook(data->mlx, &game_loop, data);
 	mlx_loop(data->mlx);
 	return (0);

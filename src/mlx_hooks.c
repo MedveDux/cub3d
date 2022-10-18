@@ -7,71 +7,51 @@ int	esc(t_data *data)
 	exit(0);
 }
 
-
-//mlx_loop_hook
-// void	ft_move(t_data *m, int x, int y)
-// {
-// 	char	move;
-
-// 	move = m->map.map[y * m->map.width + x];
-// 	if (move == '1' || (move == 'E' && m->map.flags.coin > 0))
-// 		return ;
-// 	if (m->enemy.x == x && m->enemy.y == y)
-// 	{
-// 		ft_putstr_fd("You died! ", 1);
-// 		ft_putnbr_fd(m->steps, 1);
-// 		ft_putstr_fd(" steps!\n", 1);
-// 		ft_exit(m);
-// 	}
-// 	ft_image(move, m, x, y);
-// 	m->player.y = y;
-// 	m->player.x = x;
-// 	m->steps++;
-// 	ft_putstr_fd("Move: ", 1);
-// 	ft_putnbr_fd(m->steps, 1);
-// 	ft_putstr_fd("\n", 1);
-// }
-
-
-
-int press(int key, t_keys *keys)
+void	move_a(t_data	*data)
 {
-	if (key == ESC)
-		keys->exit = true;
-	if (key == A_KEY)
-		keys->left = true;
-	if (key == D_KEY)
-		keys->right = true;
-	if (key == W_KEY)
-		keys->forward = true;
-	if (key == S_KEY)
-		keys->back = true;
-	return (0);
-	
-	// сразу на функцию esc???
-	// 	if (key == ESC)
-	// 	esc(data);
-	// else if (key == D_KEY)
-	// 	ft_move(data, data->player.x_pos + 1, data->player.y_pos);
-	// else if (key == A_KEY)
-	// 	ft_move(data, data->player.x_pos - 1, data->player.y_pos);
-	// else if (key == W_KEY)
-	// 	ft_move(data, data->player.x_pos, data->player.y_pos - 1);
-	// else if ( key == S_KEY)
-	// 	ft_move(data, data->player.x_pos, data->player.y_pos + 1);
+	if (data->map.map[(int)data->player.y_pos][(int)(data->player.x_pos - data->player.plane_x * MS)] == 0)
+		data->player.x_pos -= data->player.plane_x * MS;
+	if (data->map.map[(int)(data->player.y_pos - data->player.plane_y * MS)][(int)data->player.x_pos] == 0)
+		data->player.y_pos -= data->player.plane_y * MS;
 }
 
-int	unhold(int key, t_keys	*keys)
+void	move_d(t_data	*data)
+{
+	if (data->map.map[(int)data->player.y_pos][(int)(data->player.x_pos + data->player.plane_x * MS)] == 0)
+		data->player.x_pos += data->player.plane_x * MS;
+	if (data->map.map[(int)(data->player.y_pos + data->player.plane_y * MS)][(int)data->player.x_pos] == 0)
+		data->player.y_pos += data->player.plane_y * MS;
+}
+
+void	move_w(t_data	*data)
+{
+	if (data->map.map[(int)data->player.y_pos][(int)(data->player.x_pos + data->player.dir_x * MS)] == 0)
+		data->player.x_pos += data->player.dir_x * MS;
+	if (data->map.map[(int)(data->player.y_pos + data->player.dir_y * MS)][(int)(data->player.x_pos)] == 0)
+		data->player.x_pos += data->player.dir_y * MS;
+}
+
+void	move_s(t_data	*data)
+{
+	if (data->map.map[(int)data->player.y_pos][(int)(data->player.x_pos - data->player.dir_x * MS)] == 0)
+		data->player.x_pos -= data->player.dir_x * MS;
+	if (data->map.map[(int)(data->player.y_pos - data->player.dir_y * MS)][(int)(data->player.x_pos)] == 0)
+		data->player.x_pos -= data->player.dir_y * MS;
+}
+
+
+int press(int key, t_data *data)
 {
 	if (key == ESC)
-		keys->exit = false;
+		esc(data);
 	if (key == A_KEY)
-		keys->left = false;
+		move_a(data);
 	if (key == D_KEY)
-		keys->right = false;
+		move_d(data);
 	if (key == W_KEY)
-		keys->forward = false;
+		move_w(data);
 	if (key == S_KEY)
-		keys->back = false;
+		move_s(data);
 	return (0);
 }
+

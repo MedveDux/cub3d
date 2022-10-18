@@ -22,6 +22,7 @@
 # include "../minilibx/mlx.h"
 # define SCALE 600
 # define T_SIZE 64
+# define MS 0.25
 
 enum e_keys_code
 {
@@ -134,8 +135,7 @@ int	map_validation(t_data *data);
 
 //mlx hooks
 int	esc(t_data *data);
-int press(int key, t_keys *keys);
-int	unhold(int key, t_keys	*keys);
+int press(int key, t_data *data);
 int	game_loop(t_data	*data);
 
 void	set_textures(t_data *data);

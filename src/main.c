@@ -69,6 +69,7 @@ int main(int argc, char **argv)
     printf("Color 2 %d\n", data.img.color[1]);
     printf("Height: %d\n", data.map.height);
     printf("Width: %d\n", data.map.width);
+	printf("START\n");
 	int i = 0;
 	int j = 0;
 	while(i < data.map.height)

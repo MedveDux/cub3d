@@ -20,7 +20,7 @@
 # include <math.h>
 # include "../src/get_next_line/get_next_line.h"//src
 # include "../minilibx/mlx.h"
-# define SCALE 600
+# define SCALE 800
 # define T_SIZE 64
 # define MS 0.25
 

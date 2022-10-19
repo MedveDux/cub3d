@@ -10,36 +10,35 @@ int	esc(t_data *data)
 
 void	move_a(t_data	*data)
 {
-	if (data->map.map[(int)(int)(data->player.x_pos - data->player.plane_x * MS)][(int)data->player.y_pos])
+	if (data->map.map[(int)(int)(data->player.x_pos - data->player.plane_x * 0.65)][(int)data->player.y_pos] == 0)
 		data->player.x_pos -= data->player.plane_x * MS;
-	if (data->map.map[(int)data->player.x_pos][(int)(data->player.y_pos - data->player.plane_y * MS)] == 0)
+	if (data->map.map[(int)data->player.x_pos][(int)(data->player.y_pos - data->player.plane_y * 0.65)] == 0)
 		data->player.y_pos -= data->player.plane_y * MS;
 }
 
 void	move_d(t_data	*data)
 {
-	if (data->map.map[(int)(data->player.x_pos + data->player.plane_x * MS)][(int)data->player.y_pos] == 0)
+	if (data->map.map[(int)(data->player.x_pos + data->player.plane_x * 0.65)][(int)data->player.y_pos] == 0)
 		data->player.x_pos += data->player.plane_x * MS;
-	if (data->map.map[(int)data->player.x_pos][(int)(data->player.y_pos + data->player.plane_y * MS)] == 0)
+	if (data->map.map[(int)data->player.x_pos][(int)(data->player.y_pos + data->player.plane_y * 0.65)] == 0)
 		data->player.y_pos += data->player.plane_y * MS;
 }
 
 void	move_w(t_data	*data)
 {
-	if (data->map.map[(int)(data->player.x_pos + data->player.dir_x * MS)][(int)data->player.y_pos] == 0)
+	if (data->map.map[(int)(data->player.x_pos + data->player.dir_x * 0.65)][(int)data->player.y_pos] == 0)
 		data->player.x_pos += data->player.dir_x * MS;
-	if (data->map.map[(int)(data->player.x_pos)][(int)(data->player.y_pos + data->player.dir_y * MS)] == 0)
+	if (data->map.map[(int)(data->player.x_pos)][(int)(data->player.y_pos + data->player.dir_y * 0.65)] == 0)
 		data->player.y_pos += data->player.dir_y * MS;
 }
 
 void	move_s(t_data	*data)
 {
-	if (data->map.map[(int)(data->player.x_pos - data->player.dir_x * MS)][(int)data->player.y_pos] == 0)
+	if (data->map.map[(int)(data->player.x_pos - data->player.dir_x * 0.65)][(int)data->player.y_pos] == 0)
 		data->player.x_pos -= data->player.dir_x * MS;
-	if (data->map.map[(int)(data->player.x_pos)][(int)(data->player.y_pos - data->player.dir_y * MS)] == 0)
+	if (data->map.map[(int)(data->player.x_pos)][(int)(data->player.y_pos - data->player.dir_y * 0.65)] == 0)
 		data->player.y_pos -= data->player.dir_y * MS;
 }
-
 
 int press(int key, t_data *data)
 {

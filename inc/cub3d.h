@@ -6,7 +6,7 @@
 /*   By: cyelena <cyelena@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 18:31:05 by cyelena           #+#    #+#             */
-/*   Updated: 2022/10/16 15:24:04 by cyelena          ###   ########.fr       */
+/*   Updated: 2022/10/20 19:55:02 by cyelena          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,10 @@
 # include <math.h>
 # include "../src/get_next_line/get_next_line.h"//src
 # include "../minilibx/mlx.h"
-# define SCALE 800
+# define SCALE 1000
 # define T_SIZE 64
 # define MS 0.25
+# define RS 0.20
 
 enum e_keys_code
 {

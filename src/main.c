@@ -6,7 +6,7 @@
 /*   By: cyelena <cyelena@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 18:30:45 by cyelena           #+#    #+#             */
-/*   Updated: 2022/10/16 16:09:30 by cyelena          ###   ########.fr       */
+/*   Updated: 2022/10/20 20:38:37 by cyelena          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,14 @@ int mlx_start(t_data *data)
 	mlx_hook(data->win, 17, 0, esc, data);
 <<<<<<< HEAD
 	mlx_hook(data->win, 2, 0, press, data);
+<<<<<<< HEAD
 =======
 	mlx_hook(data->win, 2, 0, press, &data);
 	// mlx_hook(data->win, 3, 0, unhold, &data->keys);
 >>>>>>> c6c52d9 (sos)
+=======
+    // mlx_hook(data->win, 6, 0, mouse_hook, game);
+>>>>>>> dev
 	mlx_loop_hook(data->mlx, &game_loop, data);
 	mlx_loop(data->mlx);
 	return (0);

@@ -41,6 +41,26 @@ void	move_s(t_data	*data)
 		data->player.y_pos -= data->player.dir_y * MS;
 }
 
+void	move_right(t_data	*data)
+{
+	double oldDirX = data->player.dir_x;
+	data->player.dir_x = data->player.dir_x * cos(RS) - data->player.dir_y * sin(RS);
+	data->player.dir_y = oldDirX * sin(RS) + data->player.dir_y * cos(RS);
+	double oldPlaneX = data->player.plane_x;
+	data->player.plane_x = data->player.plane_x * cos(RS) - data->player.plane_y * sin(RS);
+	data->player.plane_y = oldPlaneX * sin(RS) + data->player.plane_y * cos(RS);
+}
+
+void	move_left(t_data	*data)
+{
+	double oldDirX = data->player.dir_x;
+	data->player.dir_x = data->player.dir_x * cos(-RS) - data->player.dir_y * sin(-RS);
+	data->player.dir_y = oldDirX * sin(-RS) + data->player.dir_y * cos(-RS);
+	double oldPlaneX = data->player.plane_x;
+	data->player.plane_x = data->player.plane_x * cos(-RS) - data->player.plane_y * sin(-RS);
+	data->player.plane_y = oldPlaneX * sin(-RS) + data->player.plane_y * cos(-RS);
+}
+
 int press(int key, t_data *data)
 {
 	printf("Key: %d\n", key);
@@ -60,6 +80,10 @@ int press(int key, t_data *data)
 		move_w(data);
 	if (key == S_KEY)
 		move_s(data);
+	if (key == RIGHT_KEY)
+		move_right(data);
+	if (key == LEFT_KEY)
+		move_left(data);
 	return (0);
 }
 

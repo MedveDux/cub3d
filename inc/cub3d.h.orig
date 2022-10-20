@@ -6,7 +6,7 @@
 /*   By: cyelena <cyelena@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 18:31:05 by cyelena           #+#    #+#             */
-/*   Updated: 2022/10/16 15:24:04 by cyelena          ###   ########.fr       */
+/*   Updated: 2022/10/16 16:23:28 by cyelena          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,10 @@ int	map_validation(t_data *data);
 //mlx hooks
 int	esc(t_data *data);
 int press(int key, t_data *data);
+<<<<<<< HEAD
+=======
 int	unhold(int key, t_keys	*keys);
+>>>>>>> c6c52d9 (sos)
 int	game_loop(t_data	*data);
 
 void	set_textures(t_data *data);

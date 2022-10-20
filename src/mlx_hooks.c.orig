@@ -1,6 +1,5 @@
 # include "../inc/cub3d.h"
 
-
 int	esc(t_data *data)
 {
 	//фришить map  mlx_destroy_image
@@ -9,6 +8,7 @@ int	esc(t_data *data)
 }
 
 
+<<<<<<< HEAD
 void	move_a(t_data	*data)
 {
 	if (data->map.map[(int)(int)(data->player.x_pos - data->player.plane_x * 0.65)][(int)data->player.y_pos] == 0)
@@ -16,6 +16,20 @@ void	move_a(t_data	*data)
 	if (data->map.map[(int)data->player.x_pos][(int)(data->player.y_pos - data->player.plane_y * 0.65)] == 0)
 		data->player.y_pos -= data->player.plane_y * MS;
 }
+=======
+//mlx_loop_hook
+void	ft_move(t_data *data, char word)
+{
+	char	move;
+
+	if (data->map.map[(int)(data->player.y_pos)][(int)(data->player.x_pos- \
+	data->player.plane_x * MS)] == 0)
+		data->player.x_pos -= data->player.plane_x * MS;
+	if (data->map.map[(int)(data->player.y_pos - data->player.plane_y * MS)] \
+	[(int)(data->player.plane_x)] == 0)
+		data->player.y_pos -= data->player.plane_y * MS;
+
+>>>>>>> c6c52d9 (sos)
 
 void	move_d(t_data	*data)
 {
@@ -25,6 +39,7 @@ void	move_d(t_data	*data)
 		data->player.y_pos += data->player.plane_y * MS;
 }
 
+<<<<<<< HEAD
 void	move_w(t_data	*data)
 {
 	if (data->map.map[(int)(data->player.x_pos + data->player.dir_x * 0.65)][(int)data->player.y_pos] == 0)
@@ -39,6 +54,38 @@ void	move_s(t_data	*data)
 		data->player.x_pos -= data->player.dir_x * MS;
 	if (data->map.map[(int)(data->player.x_pos)][(int)(data->player.y_pos - data->player.dir_y * 0.65)] == 0)
 		data->player.y_pos -= data->player.dir_y * MS;
+=======
+}
+
+
+
+int press(int key, t_data *data)
+{
+	// if (key == ESC)
+	// 	keys->exit = true;
+	// if (key == A_KEY)
+	// 	keys->left = true;
+	// if (key == D_KEY)
+	// 	keys->right = true;
+	// if (key == W_KEY)
+	// 	keys->forward = true;
+	// if (key == S_KEY)
+	// 	keys->back = true;
+
+	
+	// сразу на функцию esc???
+	if (key == ESC)
+		esc(data);
+	else if (key == D_KEY)
+		ft_move(data, 'D');
+	else if (key == A_KEY)
+		ft_move(data,'A');
+	else if (key == W_KEY)
+		ft_move(data, 'W');
+	else if ( key == S_KEY)
+		ft_move(data, 'S');
+			return (0);
+>>>>>>> c6c52d9 (sos)
 }
 
 int press(int key, t_data *data)

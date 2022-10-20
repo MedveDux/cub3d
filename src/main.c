@@ -6,7 +6,7 @@
 /*   By: cyelena <cyelena@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 18:30:45 by cyelena           #+#    #+#             */
-/*   Updated: 2022/10/20 20:39:28 by cyelena          ###   ########.fr       */
+/*   Updated: 2022/10/20 20:55:25 by cyelena          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,11 @@ int mlx_start(t_data *data)
 	}
 
 	set_textures(data);
+    data->player.mouse_x = SCALE / 2;
 	mlx_hook(data->win, 17, 0, esc, data);
-
 	mlx_hook(data->win, 2, 0, press, data);
+    mlx_mouse_move(data->win, SCALE / 2, SCALE / 2);
+    mlx_hook(data->win, 6, 0, mouse_hook, data);
     // mlx_hook(data->win, 6, 0, mouse_hook, game);
 	mlx_loop_hook(data->mlx, &game_loop, data);
 	mlx_loop(data->mlx);

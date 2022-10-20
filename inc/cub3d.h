@@ -6,7 +6,7 @@
 /*   By: cyelena <cyelena@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 18:31:05 by cyelena           #+#    #+#             */
-/*   Updated: 2022/10/20 19:55:02 by cyelena          ###   ########.fr       */
+/*   Updated: 2022/10/20 20:55:44 by cyelena          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ typedef struct s_player
 	// double	speed;
 	double	plane_x;
 	double	plane_y;
+	int		mouse_x;
 }   t_player;
 
 typedef struct s_raycast
@@ -128,7 +129,7 @@ typedef struct s_data
 	// int	screen_height;
 }   t_data;
 
-
+int	mouse_hook(int x, int y, t_data *data);
 int parsing(char *filename, t_data *data);
 int check_params(t_data *data, char *line);
 int init_map(char *filename, t_data *data); //parsing_map 

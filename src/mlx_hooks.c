@@ -61,6 +61,17 @@ void	move_left(t_data	*data)
 	data->player.plane_y = oldPlaneX * sin(-RS) + data->player.plane_y * cos(-RS);
 }
 
+int	mouse_hook(int x, int y, t_data *data)
+{
+	(void) y;
+	if (x > data->player.mouse_x)
+		move_right(data);
+	else if (x < data->player.mouse_x)
+		move_left(data);
+	data->player.mouse_x = x;
+	return (0);
+}
+
 int press(int key, t_data *data)
 {
 	printf("Key: %d\n", key);

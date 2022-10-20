@@ -53,7 +53,7 @@ int init_map(char *filename, t_data *data)
                     data->map.map[i][j] = 0;
                 else if (line[j] == 'W')
                 {
-                    data->map.map[i][j] = 6;
+                    data->map.map[i][j] = 0;
                     data->map.n++;
 					data->player.x_pos = i;
 					data->player.y_pos = j;
@@ -65,7 +65,7 @@ int init_map(char *filename, t_data *data)
                 }
                 else if (line[j] == 'E')
                 {
-					data->map.map[i][j] = 6;
+                    data->map.map[i][j] = 0;
                     data->map.s++;
 					data->player.x_pos = i;
 					data->player.y_pos = j;
@@ -77,7 +77,7 @@ int init_map(char *filename, t_data *data)
                 }
                 else if (line[j] == 'N')
                 {
-                    data->map.map[i][j] = 6;
+                    data->map.map[i][j] = 0;
                     data->map.w++;
 					data->player.x_pos = i;
 					data->player.y_pos = j;
@@ -89,7 +89,7 @@ int init_map(char *filename, t_data *data)
                 }
                 else if (line[j] == 'S')
                 {
-                    data->map.map[i][j] = 6;
+                    data->map.map[i][j] = 0;
                     data->map.e++;
 					data->player.x_pos = i;
 					data->player.y_pos = j;

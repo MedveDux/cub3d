@@ -6,7 +6,7 @@
 /*   By: cyelena <cyelena@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 18:31:05 by cyelena           #+#    #+#             */
-/*   Updated: 2022/10/16 16:23:28 by cyelena          ###   ########.fr       */
+/*   Updated: 2022/10/20 18:24:54 by cyelena          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <math.h>
 # include "../src/get_next_line/get_next_line.h"//src
 # include "../minilibx/mlx.h"
-# define SCALE 600
+# define SCALE 800
 # define T_SIZE 64
 # define MS 0.25
 

@@ -51,7 +51,7 @@ int init_map(char *filename, t_data *data)
                     data->map.map[i][j] = 1;
                 else if (line[j] == '0')
                     data->map.map[i][j] = 0;
-                else if (line[j] == 'N')
+                else if (line[j] == 'W')
                 {
                     data->map.map[i][j] = 6;
                     data->map.n++;
@@ -63,7 +63,7 @@ int init_map(char *filename, t_data *data)
 					data->player.plane_y = 0;
 					// data->player.angle = 270;
                 }
-                else if (line[j] == 'S')
+                else if (line[j] == 'E')
                 {
 					data->map.map[i][j] = 6;
                     data->map.s++;
@@ -75,7 +75,7 @@ int init_map(char *filename, t_data *data)
 					data->player.plane_y = 0;
 					// data->player.angle = 90;
                 }
-                else if (line[j] == 'W')
+                else if (line[j] == 'N')
                 {
                     data->map.map[i][j] = 6;
                     data->map.w++;
@@ -87,7 +87,7 @@ int init_map(char *filename, t_data *data)
 					data->player.plane_y = -0.66;
 					// data->player.angle = 180;
                 }
-                else if (line[j] == 'E')
+                else if (line[j] == 'S')
                 {
                     data->map.map[i][j] = 6;
                     data->map.e++;

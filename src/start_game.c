@@ -158,7 +158,6 @@ void	draw_func(t_data *data)
 	int i;
 	
 	i = 0;
-	printf("x %f y %f\n", data->player.x_pos, data->player.y_pos);
 	while ( i < SCALE)
 	{
 		init_start_params(data, i);

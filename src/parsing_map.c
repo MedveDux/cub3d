@@ -104,9 +104,13 @@ int init_map(char *filename, t_data *data)
             j = 0;
 			i++;
         }
+		 free(line);
 		line = get_next_line(fd);
+		 
     }
+	 free(line);
     close(fd);
+
 	if (data->map.e + data->map.s + data->map.n + data->map.w > 1 ||
 		data->map.e + data->map.s + data->map.n + data->map.w == 0)
 		return (42);

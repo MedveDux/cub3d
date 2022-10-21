@@ -4,6 +4,7 @@
 int	esc(t_data *data)
 {
 	//фришить map  mlx_destroy_image
+	clear(data);
 	mlx_destroy_window(data->mlx, data->win);
 	exit(0);
 }

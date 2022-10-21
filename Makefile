@@ -6,7 +6,7 @@
 #    By: cyelena <cyelena@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/07 20:19:07 by cyelena           #+#    #+#              #
-#    Updated: 2022/10/21 14:45:26 by cyelena          ###   ########.fr        #
+#    Updated: 2022/10/21 17:50:14 by cyelena          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = cub3d
 
 CC = cc
 CFLAGS = 
-# -g -fsanitize=address -Wall -Wextra -Werror
+#-g -fsanitize=address -Wall -Wextra -Werror
 # -Wall -Wextra -Werror
 RM = rm -rf
 

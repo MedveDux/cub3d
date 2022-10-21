@@ -6,7 +6,7 @@
 /*   By: cyelena <cyelena@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 18:30:45 by cyelena           #+#    #+#             */
-/*   Updated: 2022/10/21 13:47:08 by cyelena          ###   ########.fr       */
+/*   Updated: 2022/10/21 17:03:22 by cyelena          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,13 @@ int mlx_start(t_data *data)
 	data->mlx = mlx_init();
 	if (data->mlx == NULL)
 	{
-        //clear data
 		ft_putstr_fd("Wrong filename!", 2);
 		return (EXIT_FAILURE);
 	}
-	// mlx_get_screen_size(&data.screen_width, &data.screen_height);
-	// printf("%d\n",data.screen_width);
 	data->win = mlx_new_window(data->mlx, SCALE,
 			SCALE, "cub3d");
 	if (data->win == NULL)
 	{
-        //clear data
 		ft_putstr_fd("Wrong filename!", 2);
 		return (EXIT_FAILURE);
 	}
@@ -38,7 +34,6 @@ int mlx_start(t_data *data)
 	mlx_hook(data->win, 2, 0, press, data);
     mlx_mouse_move(data->win, SCALE / 2, SCALE / 2);
     mlx_hook(data->win, 6, 0, mouse_hook, data);
-    // mlx_hook(data->win, 6, 0, mouse_hook, game);
 	mlx_loop_hook(data->mlx, &game_loop, data);
 	mlx_loop(data->mlx);
 	return (0);
@@ -62,35 +57,30 @@ int main(int argc, char **argv)
     }
     if (parsing(argv[1], &data) == 42)
     {
-        return (EXIT_FAILURE);//putstr??
-    }  
-    printf("Direction 1 %s\n", data.img.dir_names[0]);
-    printf("Direction 2 %s\n", data.img.dir_names[1]);
-    printf("Direction 3 %s\n", data.img.dir_names[2]);
-    printf("Direction 4 %s\n", data.img.dir_names[3]);
-    printf("Flag: %d\n", data.img.flag);
-    printf("Color 1 %d\n", data.img.color[0]);
-    printf("Color 2 %d\n", data.img.color[1]);
-    printf("Height: %d\n", data.map.height);
-    printf("Width: %d\n", data.map.width);
-	printf("START\n");
-	int i = 0;
-	int j = 0;
-	while(i < data.map.height)
-	{
-		while (j < data.map.width)
-		{
-			printf("%d", data.map.map[i][j]);
-			j++;
-		}
-		printf("\n");
-		j = 0;
-		i++;
-	}
+        return (EXIT_FAILURE);
+    }
 	mlx_start(&data);
     return (0);
 }
- 
+
+
+void    clear(t_data *data)
+{
+    int i;
+
+    i = 0;
+    while (i < data->map.height)
+    {
+        free(data->map.map[i]);
+        i++;
+    }
+    free(data->map.map);
+    free(data->img.dir_names[0]);
+    free(data->img.dir_names[1]);
+    free(data->img.dir_names[2]);
+    free(data->img.dir_names[3]);
+}
+
 int parsing(char *filename, t_data *data)
 {
     int fd;
@@ -105,15 +95,14 @@ int parsing(char *filename, t_data *data)
     if (fd < 0)
     {
         ft_putstr_fd("Wrong fd\n", 2);
-        close(fd);
+        close(fd); 
         return (42);
     }
     data->img.flag = 0;
     line = get_next_line(fd);
     while (line)
     {
-        if (check_params(data, line) == 42)
-            return (42);// maybe убрать
+        check_params(data, line);
         if (data->img.flag == 6 && (*line == '1' || *line == ' '))
         {
             i++;
@@ -121,8 +110,10 @@ int parsing(char *filename, t_data *data)
             size = ft_strlen(line) - 1;
             
         }
+        free(line);
         line = get_next_line(fd);
     }
+    free(line);//
     data->map.height = i;
     data->map.width = size;
     close(fd);
@@ -131,8 +122,9 @@ int parsing(char *filename, t_data *data)
 	if (map_validation(data))
 	{
 		ft_putstr_fd("Invalid map\n", 2);
-		// clean data
+		clear(data);
 		return (42);	
 	}
     return (0);
 }
+

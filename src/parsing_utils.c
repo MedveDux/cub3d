@@ -1,11 +1,27 @@
 # include "../inc/cub3d.h"
 
+void    clean_cut_line(char **arr)
+{
+    int i;
+
+    i = 0;
+    while (arr[i])
+    {
+        free(arr[i]);
+        i++;
+    }
+    free(arr);
+}
+
 int rgb_dec(char *line)
 {
     char **sp;
+    int num;
     sp = ft_split(line, ',');//free
+    num = ft_atoi(sp[2]) * 65536 + (ft_atoi(sp[1]) * 256) + ft_atoi(sp[0]);
+    clean_cut_line(sp);
     // add checking rgb
-    return(ft_atoi(sp[2]) * 65536 + (ft_atoi(sp[1]) * 256) + ft_atoi(sp[0]));
+    return(num);
     //225,30,0
 }
 
@@ -26,8 +42,12 @@ char *cut_line(char *line)
     return (new_line);
 }
 
+
+
 int check_params(t_data *data, char *line) 
 {
+    char *str;
+
     if (ft_strncmp(line, "NO", 2) == 0)
     {
         data->img.dir_names[0] = cut_line(line);
@@ -50,13 +70,17 @@ int check_params(t_data *data, char *line)
     }
     else if (ft_strncmp(line, "F", 1) == 0)
     {
-        data->img.color[0] = rgb_dec(cut_line(line));
+        str = cut_line(line);
+        data->img.color[0] = rgb_dec(str);
+        free(str);
         data->img.flag++;
 
     }
     else if (ft_strncmp(line, "C", 1) == 0)
     {
-        data->img.color[1] = rgb_dec(cut_line(line));
+        str = cut_line(line);
+        data->img.color[1] = rgb_dec(str);
+        free(str);
         data->img.flag++;
     }
     return(0);

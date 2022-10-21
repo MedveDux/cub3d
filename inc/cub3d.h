@@ -6,7 +6,7 @@
 /*   By: cyelena <cyelena@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 18:31:05 by cyelena           #+#    #+#             */
-/*   Updated: 2022/10/21 13:56:08 by cyelena          ###   ########.fr       */
+/*   Updated: 2022/10/21 16:25:12 by cyelena          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ typedef struct s_map
     int n;//0
     int s;//0
     int e;//0
-    int w;//0
+    int w;
 }   t_map;
 
 typedef	struct s_wall
@@ -120,24 +120,21 @@ typedef struct s_data
 {
 	void		*mlx;
 	void		*win;
-	// void		*img[OBJ];
     t_img img;
 	t_player player;
     t_map   map;
 	t_keys	keys;
 	t_raycast	ray;
 	t_wall	wall;
-	// int screen_width;
-	// int	screen_height;
+
 }   t_data;
 
 int	mouse_hook(int x, int y, t_data *data);
 int parsing(char *filename, t_data *data);
 int check_params(t_data *data, char *line);
-int init_map(char *filename, t_data *data); //parsing_map 
+int init_map(char *filename, t_data *data);
 int	map_validation(t_data *data);
 
-//mlx hooks
 int	esc(t_data *data);
 int press(int key, t_data *data);
 int	unhold(int key, t_keys	*keys);
@@ -145,7 +142,7 @@ int	game_loop(t_data	*data);
 
 void	set_textures(t_data *data);
 void draw_mini_map(t_data *data);
-
+void    clear(t_data *data);
 	
 
 

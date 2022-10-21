@@ -6,7 +6,7 @@
 /*   By: cyelena <cyelena@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 13:53:10 by cyelena           #+#    #+#             */
-/*   Updated: 2022/10/21 15:59:07 by cyelena          ###   ########.fr       */
+/*   Updated: 2022/10/21 16:04:10 by cyelena          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	draw_pixel(t_data *data, int i, int j, int color)
 		{
             dest = (char *)data->img.data_addr + ((y + 10) * data->img.size_line + (x + 10) * (data->img.bpp / 8));
 		    *(unsigned int *)dest = color;
-
 			x++;
 		}
 		y++;

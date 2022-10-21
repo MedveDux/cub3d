@@ -83,18 +83,26 @@ int press(int key, t_data *data)
 	// printf("Ray dir y: %f\n", data->ray.rayDirY);
 	if (key == ESC)
 		esc(data);
-	if (key == A_KEY)
+	else if (key == A_KEY)
 		move_a(data);
-	if (key == D_KEY)
+	else if (key == D_KEY)
 		move_d(data);
-	if (key == W_KEY)
+	else if (key == W_KEY)
 		move_w(data);
-	if (key == S_KEY)
+	else if (key == S_KEY)
 		move_s(data);
-	if (key == RIGHT_KEY)
+	else if (key == RIGHT_KEY)
 		move_right(data);
-	if (key == LEFT_KEY)
+	else if (key == LEFT_KEY)
 		move_left(data);
+	else if (key == M_KEY)
+	{
+		if (data->player.map_flag == 0)
+			data->player.map_flag = 1;
+		else 
+			data->player.map_flag = 0;
+	}
+	
 	return (0);
 }
 

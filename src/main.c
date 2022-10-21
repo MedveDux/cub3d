@@ -6,7 +6,7 @@
 /*   By: cyelena <cyelena@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 18:30:45 by cyelena           #+#    #+#             */
-/*   Updated: 2022/10/20 20:55:25 by cyelena          ###   ########.fr       */
+/*   Updated: 2022/10/21 13:47:08 by cyelena          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ int parsing(char *filename, t_data *data)
     
     size = 0;
     i = 0;
+    data->player.map_flag = 0;
     fd = open(filename, O_RDONLY, 0644);
     if (fd < 0)
     {

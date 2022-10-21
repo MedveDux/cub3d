@@ -6,14 +6,15 @@
 #    By: cyelena <cyelena@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/07 20:19:07 by cyelena           #+#    #+#              #
-#    Updated: 2022/10/13 20:50:39 by cyelena          ###   ########.fr        #
+#    Updated: 2022/10/21 14:45:26 by cyelena          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3d
 
 CC = cc
-CFLAGS = -g -fsanitize=address -Wall -Wextra -Werror
+CFLAGS = 
+# -g -fsanitize=address -Wall -Wextra -Werror
 # -Wall -Wextra -Werror
 RM = rm -rf
 
@@ -34,6 +35,7 @@ SRC_FILES = main.c \
 			mlx_hooks.c \
 			init_func.c \
 			start_game.c \
+			draw_mini_map.c\
 			get_next_line/get_next_line.c \
 			get_next_line/get_next_line_utils.c \
 

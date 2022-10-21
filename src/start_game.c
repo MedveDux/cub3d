@@ -177,6 +177,8 @@ int	game_loop(t_data	*data)
 		&data->img.size_line, &data->img.endian);
 	draw_celling_and_floor(data);
 	draw_func(data);
+	if (data->player.map_flag == 1)
+		draw_mini_map(data);
 	mlx_put_image_to_window(data->mlx, data->win, data->img.img_ptr, 0, 0);
 	mlx_destroy_image(data->mlx, data->img.img_ptr);
 	return (1);

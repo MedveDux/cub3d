@@ -6,7 +6,7 @@
 /*   By: cyelena <cyelena@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 18:31:05 by cyelena           #+#    #+#             */
-/*   Updated: 2022/10/21 16:25:12 by cyelena          ###   ########.fr       */
+/*   Updated: 2022/10/22 20:19:17 by cyelena          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,9 @@ void draw_mini_map(t_data *data);
 void    clear(t_data *data);
 	
 
-
-
+//cardinal_directions_init.c
+void	west(t_data *data, int i, int j);
+void	east(t_data *data, int i, int j);
+void	north(t_data *data, int i, int j);
+void	sourth(t_data *data, int i, int j);
 #endif

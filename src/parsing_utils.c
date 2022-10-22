@@ -1,102 +1,113 @@
-# include "../inc/cub3d.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing_utils.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cyelena <cyelena@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/22 20:45:59 by cyelena           #+#    #+#             */
+/*   Updated: 2022/10/22 22:45:49 by cyelena          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-void    clean_cut_line(char **arr)
+#include "../inc/cub3d.h"
+
+void	clean_cut_line(char **arr)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    while (arr[i])
-    {
-        free(arr[i]);
-        i++;
-    }
-    free(arr);
+	i = 0;
+	while (arr[i])
+	{
+		free(arr[i]);
+		i++;
+	}
+	free(arr);
 }
 
-int rgb_dec(char *line)
+int	rgb_dec(char *line)
 {
-    char **sp;
-    int num;
-    sp = ft_split(line, ',');//free
-    num = ft_atoi(sp[2]) * 65536 + (ft_atoi(sp[1]) * 256) + ft_atoi(sp[0]);
-    clean_cut_line(sp);
-    // add checking rgb
-    return(num);
-    //225,30,0
+	char	**sp;
+	int		num;
+
+	sp = ft_split(line, ',');
+	num = ft_atoi(sp[2]) * 65536 + (ft_atoi(sp[1]) * 256) + ft_atoi(sp[0]);
+	clean_cut_line(sp);
+	return (num);
 }
 
-char *cut_line(char *line)
+char	*cut_line(char *line)
 {
-    int i;
-    char    *new_line;
-    int size;
-    // new_line = ft_strdup(" ");// не точно но видимо без маллока не работает
-    size = ft_strlen(line);
-    i = 0;
-    while (line[i] != ' ')
-        i++;
-    while (line[i] == ' ')
-        i++;
+	int		i;
+	char	*new_line;
+	int		size;
 
-    new_line = ft_substr(line, i, size - i - 1);
-    return (new_line);
+	size = ft_strlen(line);
+	i = 0;
+	while (line[i] != ' ')
+		i++;
+	while (line[i] == ' ')
+		i++;
+	new_line = ft_substr(line, i, size - i - 1);
+	return (new_line);
 }
 
-
-
-int check_params(t_data *data, char *line) 
+void	check_params2(t_data *data, char *line)
 {
-    char *str;
+	char	*str;
 
-    if (ft_strncmp(line, "NO", 2) == 0)
-    {
-        data->img.dir_names[0] = cut_line(line);
-        data->img.flag++;
-    }
-    else if (ft_strncmp(line, "SO", 2) == 0)
-    {
-        data->img.dir_names[1] = cut_line(line);
-        data->img.flag++;
-    }
-    else if (ft_strncmp(line, "WE", 2) == 0)
-    {
-        data->img.dir_names[2] = cut_line(line);
-        data->img.flag++;
-    }
-    else if (ft_strncmp(line, "EA", 2) == 0)
-    {
-        data->img.dir_names[3] = cut_line(line);
-        data->img.flag++;
-    }
-    else if (ft_strncmp(line, "F", 1) == 0)
-    {
-        str = cut_line(line);
-        data->img.color[0] = rgb_dec(str);
-        free(str);
-        data->img.flag++;
-
-    }
-    else if (ft_strncmp(line, "C", 1) == 0)
-    {
-        str = cut_line(line);
-        data->img.color[1] = rgb_dec(str);
-        free(str);
-        data->img.flag++;
-    }
-    return(0);
+	if (ft_strncmp(line, "F", 1) == 0)
+	{
+		str = cut_line(line);
+		data->img.color[0] = rgb_dec(str);
+		free(str);
+		data->img.flag++;
+	}
+	else if (ft_strncmp(line, "C", 1) == 0)
+	{
+		str = cut_line(line);
+		data->img.color[1] = rgb_dec(str);
+		free(str);
+		data->img.flag++;
+	}
 }
 
-//как проверяются концы 
-int check_empty(t_data *data, int i, int j)
+int	check_params(t_data *data, char *line)
+{
+	if (ft_strncmp(line, "NO", 2) == 0)
+	{
+		data->img.dir_names[0] = cut_line(line);
+		data->img.flag++;
+	}
+	else if (ft_strncmp(line, "SO", 2) == 0)
+	{
+		data->img.dir_names[1] = cut_line(line);
+		data->img.flag++;
+	}
+	else if (ft_strncmp(line, "WE", 2) == 0)
+	{
+		data->img.dir_names[2] = cut_line(line);
+		data->img.flag++;
+	}
+	else if (ft_strncmp(line, "EA", 2) == 0)
+	{
+		data->img.dir_names[3] = cut_line(line);
+		data->img.flag++;
+	}
+	check_params2(data, line);
+	return (0);
+}
+
+int	check_empty(t_data *data, int i, int j)
 {
 	if (i == 0 || j == 0 || i == data->map.height - 1 || \
 		j == data->map.width - 1)
 		return (1);
-	if (data->map.map[i-1][j] == 2 || 
-		data->map.map[i+1][j] == 2 ||
-		data->map.map[i][j-1] == 2 ||
-		data->map.map[i][j+1] == 2)
-		return(1);
+	if (data->map.map[i - 1][j] == 2 || \
+		data->map.map[i + 1][j] == 2 || \
+		data->map.map[i][j - 1] == 2 || \
+		data->map.map[i][j + 1] == 2)
+		return (1);
 	return (0);
 }
 
@@ -121,7 +132,7 @@ int	map_validation(t_data *data)
 		j = 0;
 		while (j < data->map.width)
 		{
-			if(checking_elem(data, i, j))
+			if (checking_elem(data, i, j))
 				return (1);
 			j++;
 		}

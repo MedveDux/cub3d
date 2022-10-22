@@ -6,7 +6,7 @@
 #    By: cyelena <cyelena@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/07 20:19:07 by cyelena           #+#    #+#              #
-#    Updated: 2022/10/21 17:50:14 by cyelena          ###   ########.fr        #
+#    Updated: 2022/10/22 20:16:27 by cyelena          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ SRC_FILES = main.c \
 			parsing_map.c \
 			mlx_hooks.c \
 			init_func.c \
+			cardinal_directions_init.c\
 			start_game.c \
 			draw_mini_map.c\
 			get_next_line/get_next_line.c \

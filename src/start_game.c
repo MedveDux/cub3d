@@ -6,7 +6,7 @@
 /*   By: mdaryn <mdaryn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 22:47:06 by cyelena           #+#    #+#             */
-/*   Updated: 2022/10/23 15:24:52 by mdaryn           ###   ########.fr       */
+/*   Updated: 2022/10/23 16:21:30 by mdaryn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	prepare_func(t_data	*data)
 	double	wall_x;
 
 	if (data->ray.side == 0)
-		wall_x = data->player.y_pos + data->ray.perp_wall_dist\
+		wall_x = data->player.y_pos + data->ray.perp_wall_dist \
 		* data->ray.ray_dir_y;
 	else
 		wall_x = data->player.x_pos + data->ray.perp_wall_dist \

@@ -6,7 +6,7 @@
 /*   By: mdaryn <mdaryn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 14:47:49 by mdaryn            #+#    #+#             */
-/*   Updated: 2022/10/23 15:23:37 by mdaryn           ###   ########.fr       */
+/*   Updated: 2022/10/23 16:21:59 by mdaryn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,9 +98,11 @@ void	dda_algoritm(t_data	*data)
 void	draw_func_helper(t_data *data)
 {
 	if (data->ray.side == 0)
-		data->ray.perp_wall_dist = (data->ray.side_dist_x - data->ray.delta_dist_x);
+		data->ray.perp_wall_dist = (data->ray.side_dist_x - \
+		data->ray.delta_dist_x);
 	else
-		data->ray.perp_wall_dist = (data->ray.side_dist_y - data->ray.delta_dist_y);
+		data->ray.perp_wall_dist = (data->ray.side_dist_y - \
+		data->ray.delta_dist_y);
 	data->ray.line_height = (int)(SCALE / data->ray.perp_wall_dist);
 		data->ray.draw_start = -data->ray.line_height / 2 + SCALE / 2;
 	if (data->ray.draw_start < 0)

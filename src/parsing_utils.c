@@ -6,7 +6,7 @@
 /*   By: mdaryn <mdaryn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 20:45:59 by cyelena           #+#    #+#             */
-/*   Updated: 2022/10/23 14:52:58 by mdaryn           ###   ########.fr       */
+/*   Updated: 2022/10/23 16:16:19 by mdaryn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,10 @@ int	map_validation(t_data *data)
 		while (j < data->map.width)
 		{
 			if (checking_elem(data, i, j))
-				return (1);
+			{
+				ft_putstr_fd("Invalid map\n", 2);
+				exit(1);
+			}
 			j++;
 		}
 		i++;

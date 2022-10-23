@@ -6,7 +6,7 @@
 /*   By: mdaryn <mdaryn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 18:30:45 by cyelena           #+#    #+#             */
-/*   Updated: 2022/10/23 15:58:06 by mdaryn           ###   ########.fr       */
+/*   Updated: 2022/10/23 16:11:58 by mdaryn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int	parsing(char *filename, t_data *data)
 	if (data->img.flag != 6)
 	{
 		ft_putstr_fd("Invalid map\n", 2);
-		return (42);
+		exit(1);
 	}
 	data->map.height = i;
 	data->map.width = size;

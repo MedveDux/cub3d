@@ -6,7 +6,7 @@
 /*   By: mdaryn <mdaryn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 14:51:51 by mdaryn            #+#    #+#             */
-/*   Updated: 2022/10/23 14:55:02 by mdaryn           ###   ########.fr       */
+/*   Updated: 2022/10/23 16:13:37 by mdaryn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int	norma(t_data *data, char *filename)
 	{
 		ft_putstr_fd("Invalid map\n", 2);
 		clear(data);
-		return (42);
+		exit(1);
 	}
 	return (0);
 }

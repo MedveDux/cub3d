@@ -6,7 +6,7 @@
 /*   By: mdaryn <mdaryn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 22:47:06 by cyelena           #+#    #+#             */
-/*   Updated: 2022/10/23 14:49:28 by mdaryn           ###   ########.fr       */
+/*   Updated: 2022/10/23 15:24:52 by mdaryn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,27 +17,27 @@ void	prepare_func(t_data	*data)
 	double	wall_x;
 
 	if (data->ray.side == 0)
-		wall_x = data->player.y_pos + data->ray.perpWallDist \
-		* data->ray.rayDirY;
+		wall_x = data->player.y_pos + data->ray.perp_wall_dist\
+		* data->ray.ray_dir_y;
 	else
-		wall_x = data->player.x_pos + data->ray.perpWallDist \
-		* data->ray.rayDirX;
+		wall_x = data->player.x_pos + data->ray.perp_wall_dist \
+		* data->ray.ray_dir_x;
 	wall_x -= floor(wall_x);
 	data->wall.tex_x = (int)(wall_x * (double)T_SIZE);
-	if (data->ray.side == 0 && data->ray.rayDirX > 0)
+	if (data->ray.side == 0 && data->ray.ray_dir_x > 0)
 		data->wall.tex_x = T_SIZE - data->wall.tex_x - 1;
-	if (data->ray.side == 1 && data->ray.rayDirY < 0)
+	if (data->ray.side == 1 && data->ray.ray_dir_y < 0)
 		data->wall.tex_x = T_SIZE - data->wall.tex_x - 1;
-	data->wall.step = 1.0 * T_SIZE / data->ray.lineHeight;
-	data->wall.tex_pos = (data->ray.drawStart - SCALE / 2 + \
-	data->ray.lineHeight / 2) * data->wall.step;
+	data->wall.step = 1.0 * T_SIZE / data->ray.line_height;
+	data->wall.tex_pos = (data->ray.draw_start - SCALE / 2 + \
+	data->ray.line_height / 2) * data->wall.step;
 }
 
 int	texturing(t_data *data, unsigned int *color)
 {
 	if (data->ray.side == 0)
 	{
-		if (data->ray.rayDirX >= 0)
+		if (data->ray.ray_dir_x >= 0)
 			*color = ((unsigned int *)data->img.texture_addr[3])[T_SIZE \
 			* data->wall.tex_y + data->wall.tex_x];
 		else
@@ -46,7 +46,7 @@ int	texturing(t_data *data, unsigned int *color)
 	}
 	else
 	{
-		if (data->ray.rayDirY >= 0)
+		if (data->ray.ray_dir_y >= 0)
 			*color = ((unsigned int *)data->img.texture_addr[1])[T_SIZE \
 			* data->wall.tex_y + data->wall.tex_x];
 		else
@@ -62,9 +62,9 @@ void	draw_textures(t_data *data, int i)
 	char			*dest;
 	unsigned int	color;
 
-	j = data->ray.drawStart;
+	j = data->ray.draw_start;
 	prepare_func(data);
-	while (j <= data->ray.drawEnd)
+	while (j <= data->ray.draw_end)
 	{
 		data->wall.tex_y = (int)data->wall.tex_pos & (T_SIZE - 1);
 		data->wall.tex_pos += data->wall.step;

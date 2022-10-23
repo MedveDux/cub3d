@@ -6,7 +6,7 @@
 /*   By: mdaryn <mdaryn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 18:31:05 by cyelena           #+#    #+#             */
-/*   Updated: 2022/10/23 14:55:09 by mdaryn           ###   ########.fr       */
+/*   Updated: 2022/10/23 15:17:28 by mdaryn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,23 +77,23 @@ typedef struct s_player
 
 typedef struct s_raycast
 {
-	double	cameraX;
-	double	rayDirX;
-	double	rayDirY;
-	int mapX;
-    int mapY;
-	double deltaDistX;
-	double deltaDistY;
-	double sideDistX;
-    double sideDistY;
-	int stepX;
-    int stepY;
+	double	camera_x;
+	double	ray_dir_x;
+	double	ray_dir_y;
+	int map_x;
+    int map_y;
+	double delta_dist_x;
+	double delta_dist_y;
+	double side_dist_x;
+    double side_dist_y;
+	int step_x;
+    int step_y;
 	int hit;
 	int side;
-	double	perpWallDist;
-	int lineHeight;
-	int drawStart;
-	int drawEnd;	
+	double	perp_wall_dist;
+	int line_height;
+	int draw_start;
+	int draw_end;	
 } t_raycast;
 
 typedef struct s_map

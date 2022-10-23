@@ -6,7 +6,7 @@
 /*   By: mdaryn <mdaryn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 14:47:49 by mdaryn            #+#    #+#             */
-/*   Updated: 2022/10/23 14:50:13 by mdaryn           ###   ########.fr       */
+/*   Updated: 2022/10/23 15:23:37 by mdaryn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,48 +28,48 @@ void	draw_celling_and_floor(t_data *data)
 
 void	init_start_params(t_data *data, int i)
 {
-	data->ray.cameraX = 2 * i / (double)SCALE - 1;
-	data->ray.rayDirX = data->player.dir_x + data->player.plane_x \
-	* data->ray.cameraX;
-	data->ray.rayDirY = data->player.dir_y + data->player.plane_y \
-	* data->ray.cameraX;
-	data->ray.mapX = (int)data->player.x_pos;
-	data->ray.mapY = (int)data->player.y_pos;
-	if (data->ray.rayDirX == 0)
-		data->ray.deltaDistX = 1e30;
+	data->ray.camera_x = 2 * i / (double)SCALE - 1;
+	data->ray.ray_dir_x = data->player.dir_x + data->player.plane_x \
+	* data->ray.camera_x;
+	data->ray.ray_dir_y = data->player.dir_y + data->player.plane_y \
+	* data->ray.camera_x;
+	data->ray.map_x = (int)data->player.x_pos;
+	data->ray.map_y = (int)data->player.y_pos;
+	if (data->ray.ray_dir_x == 0)
+		data->ray.delta_dist_x = 1e30;
 	else
-		data->ray.deltaDistX = fabs(1 / data->ray.rayDirX);
-	if (data->ray.rayDirY == 0)
-		data->ray.deltaDistY = 1e30;
+		data->ray.delta_dist_x = fabs(1 / data->ray.ray_dir_x);
+	if (data->ray.ray_dir_y == 0)
+		data->ray.delta_dist_y = 1e30;
 	else
-		data->ray.deltaDistY = fabs(1 / data->ray.rayDirY);
+		data->ray.delta_dist_y = fabs(1 / data->ray.ray_dir_y);
 }
 
 void	calculate_steps(t_data	*data)
 {
-	if (data->ray.rayDirX < 0)
+	if (data->ray.ray_dir_x < 0)
 	{
-		data->ray.stepX = -1;
-		data->ray.sideDistX = (data->player.x_pos - data->ray.mapX) * \
-		data->ray.deltaDistX;
+		data->ray.step_x = -1;
+		data->ray.side_dist_x = (data->player.x_pos - data->ray.map_x) * \
+		data->ray.delta_dist_x;
 	}
 	else
 	{
-		data->ray.stepX = 1;
-		data->ray.sideDistX = (data->ray.mapX + 1.0 - data->player.x_pos) * \
-		data->ray.deltaDistX;
+		data->ray.step_x = 1;
+		data->ray.side_dist_x = (data->ray.map_x + 1.0 - data->player.x_pos) * \
+		data->ray.delta_dist_x;
 	}
-	if (data->ray.rayDirY < 0)
+	if (data->ray.ray_dir_y < 0)
 	{
-		data->ray.stepY = -1;
-		data->ray.sideDistY = (data->player.y_pos - data->ray.mapY) * \
-		data->ray.deltaDistY;
+		data->ray.step_y = -1;
+		data->ray.side_dist_y = (data->player.y_pos - data->ray.map_y) * \
+		data->ray.delta_dist_y;
 	}
 	else
 	{
-		data->ray.stepY = 1;
-		data->ray.sideDistY = (data->ray.mapY + 1.0 - data->player.y_pos) * \
-		data->ray.deltaDistY;
+		data->ray.step_y = 1;
+		data->ray.side_dist_y = (data->ray.map_y + 1.0 - data->player.y_pos) * \
+		data->ray.delta_dist_y;
 	}
 }
 
@@ -78,19 +78,19 @@ void	dda_algoritm(t_data	*data)
 	data->ray.hit = 0;
 	while (data->ray.hit == 0)
 	{
-		if (data->ray.sideDistX < data->ray.sideDistY)
+		if (data->ray.side_dist_x < data->ray.side_dist_y)
 		{
-			data->ray.sideDistX += data->ray.deltaDistX;
-			data->ray.mapX += data->ray.stepX;
+			data->ray.side_dist_x += data->ray.delta_dist_x;
+			data->ray.map_x += data->ray.step_x;
 			data->ray.side = 0;
 		}
 		else
 		{
-			data->ray.sideDistY += data->ray.deltaDistY;
-			data->ray.mapY += data->ray.stepY;
+			data->ray.side_dist_y += data->ray.delta_dist_y;
+			data->ray.map_y += data->ray.step_y;
 			data->ray.side = 1;
 		}
-		if (data->map.map[data->ray.mapX][data->ray.mapY] == 1)
+		if (data->map.map[data->ray.map_x][data->ray.map_y] == 1)
 			data->ray.hit = 1;
 	}
 }
@@ -98,14 +98,14 @@ void	dda_algoritm(t_data	*data)
 void	draw_func_helper(t_data *data)
 {
 	if (data->ray.side == 0)
-		data->ray.perpWallDist = (data->ray.sideDistX - data->ray.deltaDistX);
+		data->ray.perp_wall_dist = (data->ray.side_dist_x - data->ray.delta_dist_x);
 	else
-		data->ray.perpWallDist = (data->ray.sideDistY - data->ray.deltaDistY);
-	data->ray.lineHeight = (int)(SCALE / data->ray.perpWallDist);
-		data->ray.drawStart = -data->ray.lineHeight / 2 + SCALE / 2;
-	if (data->ray.drawStart < 0)
-		data->ray.drawStart = 0;
-	data->ray.drawEnd = data->ray.lineHeight / 2 + SCALE / 2;
-	if (data->ray.drawEnd >= SCALE)
-		data->ray.drawEnd = SCALE - 1;
+		data->ray.perp_wall_dist = (data->ray.side_dist_y - data->ray.delta_dist_y);
+	data->ray.line_height = (int)(SCALE / data->ray.perp_wall_dist);
+		data->ray.draw_start = -data->ray.line_height / 2 + SCALE / 2;
+	if (data->ray.draw_start < 0)
+		data->ray.draw_start = 0;
+	data->ray.draw_end = data->ray.line_height / 2 + SCALE / 2;
+	if (data->ray.draw_end >= SCALE)
+		data->ray.draw_end = SCALE - 1;
 }

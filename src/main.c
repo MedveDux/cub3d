@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cyelena <cyelena@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mdaryn <mdaryn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 18:30:45 by cyelena           #+#    #+#             */
-/*   Updated: 2022/10/22 22:26:55 by cyelena          ###   ########.fr       */
+/*   Updated: 2022/10/23 14:54:59 by mdaryn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,29 +62,30 @@ int	main(int argc, char **argv)
 	return (0);
 }
 
-void	clear(t_data *data)
+int	checking(char *filename)
 {
-	int	i;
+	int	fd;
 
-	i = 0;
-	while (i < data->map.height)
+	fd = open(filename, O_RDONLY, 0644);
+	if (fd < 0)
 	{
-		free(data->map.map[i]);
-		i++;
+		ft_putstr_fd("Wrong fd\n", 2);
+		close(fd);
+		return (-1);
 	}
-	free(data->map.map);
-	free(data->img.dir_names[0]);
-	free(data->img.dir_names[1]);
-	free(data->img.dir_names[2]);
-	free(data->img.dir_names[3]);
+	return (fd);
 }
 
-void	init_parsing(t_data *data, size_t *size, int *i)
+void	check_character(t_data *data, int *i, char *line, size_t *size)
 {
-	*size = 0;
-	*i = 0;
-	data->player.map_flag = 0;
-	data->img.flag = 0;
+	check_params(data, line);
+	if (data->img.flag == 6 && (*line == '1' || *line == ' '))
+	{
+		(*i)++;
+		if (*size < ft_strlen(line) - 1)
+			*size = ft_strlen(line) - 1;
+	}
+	free(line);
 }
 
 int	parsing(char *filename, t_data *data)
@@ -95,37 +96,18 @@ int	parsing(char *filename, t_data *data)
 	size_t	size;
 
 	init_parsing(data, &size, &i);
-	fd = open(filename, O_RDONLY, 0644);
-	if (fd < 0)
-	{
-		ft_putstr_fd("Wrong fd\n", 2);
-		close(fd);
+	fd = checking(filename);
+	if (fd == -1)
 		return (42);
-	}
 	line = get_next_line(fd);
 	while (line)
 	{
-		check_params(data, line);
-		if (data->img.flag == 6 && (*line == '1' || *line == ' '))
-		{
-			i++;
-			if (size < ft_strlen(line) - 1)
-				size = ft_strlen(line) - 1;
-		}
-		free(line);
+		check_character(data, &i, line, &size);
 		line = get_next_line(fd);
 	}
 	free(line);
 	data->map.height = i;
 	data->map.width = size;
 	close(fd);
-	if (init_map(filename, data) == 42)
-		return (42);
-	if (map_validation(data))
-	{
-		ft_putstr_fd("Invalid map\n", 2);
-		clear(data);
-		return (42);
-	}
-	return (0);
+	return (norma(data, filename));
 }

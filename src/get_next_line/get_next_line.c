@@ -127,7 +127,7 @@ char	*get_next_line(int fd)
 // 	int		fd1;
 // 	int		fd2;
 // 	int		counter;
-	
+
 // 	fd1 = open("text2.txt", O_RDONLY);
 // 	// write(1, "1", 1);
 // 	counter = 0;

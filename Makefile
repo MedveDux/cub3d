@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cyelena <cyelena@student.42.fr>            +#+  +:+       +#+         #
+#    By: mdaryn <mdaryn@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/07 20:19:07 by cyelena           #+#    #+#              #
-#    Updated: 2022/10/22 20:16:27 by cyelena          ###   ########.fr        #
+#    Updated: 2022/10/23 14:52:11 by mdaryn           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3d
 
 CC = cc
-CFLAGS = 
+CFLAGS = -Wall -Wextra -Werror
 #-g -fsanitize=address -Wall -Wextra -Werror
 # -Wall -Wextra -Werror
 RM = rm -rf
@@ -37,6 +37,10 @@ SRC_FILES = main.c \
 			cardinal_directions_init.c\
 			start_game.c \
 			draw_mini_map.c\
+			mlx_move.c\
+			clear.c\
+			algoritm.c\
+			parsing_utils2.c\
 			get_next_line/get_next_line.c \
 			get_next_line/get_next_line_utils.c \
 

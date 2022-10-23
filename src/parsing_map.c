@@ -63,6 +63,14 @@ void	body(t_data *data, char *line, int i, int *j)
 	(*j)++;
 }
 
+int	check_nwse(t_data *data)
+{
+	if (data->map.e + data->map.s + data->map.n + data->map.w > 1 || \
+	data->map.e + data->map.s + data->map.n + data->map.w == 0)
+		return (42);
+	return (0);
+}
+
 int	init_map(char *filename, t_data *data)
 {
 	char	*line;
@@ -89,8 +97,5 @@ int	init_map(char *filename, t_data *data)
 	}
 	free(line);
 	close(fd);
-	if (data->map.e + data->map.s + data->map.n + data->map.w > 1 || \
-		data->map.e + data->map.s + data->map.n + data->map.w == 0)
-		return (42);
-	return (0);
+	return (check_nwse(data));
 }

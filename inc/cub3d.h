@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cyelena <cyelena@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mdaryn <mdaryn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 18:31:05 by cyelena           #+#    #+#             */
-/*   Updated: 2022/10/22 20:19:17 by cyelena          ###   ########.fr       */
+/*   Updated: 2022/10/23 14:55:09 by mdaryn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,4 +150,28 @@ void	west(t_data *data, int i, int j);
 void	east(t_data *data, int i, int j);
 void	north(t_data *data, int i, int j);
 void	sourth(t_data *data, int i, int j);
+
+
+void	init_parsing(t_data *data, size_t *size, int *i);
+
+// mlx_move.c
+void	move_a(t_data	*data);
+void	move_s(t_data	*data);
+void	move_d(t_data	*data);
+void	move_w(t_data	*data);
+// clear.c
+void	clear(t_data *data);
+void	clean_cut_line(char **arr);
+// algoritm.c
+void	draw_celling_and_floor(t_data *data);
+void	init_start_params(t_data *data, int i);
+void	calculate_steps(t_data	*data);
+void	dda_algoritm(t_data	*data);
+void	draw_func_helper(t_data *data);
+// parsing_utils2.c
+int	rgb_dec(char *line);
+char	*cut_line(char *line);
+void	check_params2(t_data *data, char *line);
+int	check_params(t_data *data, char *line);
+int	norma(t_data *data, char *filename);
 #endif

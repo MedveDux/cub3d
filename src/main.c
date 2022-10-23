@@ -6,7 +6,7 @@
 /*   By: mdaryn <mdaryn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 18:30:45 by cyelena           #+#    #+#             */
-/*   Updated: 2022/10/23 14:54:59 by mdaryn           ###   ########.fr       */
+/*   Updated: 2022/10/23 15:58:06 by mdaryn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	mlx_start(t_data *data)
 		ft_putstr_fd("Wrong filename!", 2);
 		return (EXIT_FAILURE);
 	}
-	data->win = mlx_new_window(data->mlx, SCALE, SCALE, "cub3d");
+	data->win = mlx_new_window(data->mlx, SCALE, SCALE, "cub3D");
 	if (data->win == NULL)
 	{
 		ft_putstr_fd("Wrong filename!", 2);
@@ -106,8 +106,13 @@ int	parsing(char *filename, t_data *data)
 		line = get_next_line(fd);
 	}
 	free(line);
+	close(fd);
+	if (data->img.flag != 6)
+	{
+		ft_putstr_fd("Invalid map\n", 2);
+		return (42);
+	}
 	data->map.height = i;
 	data->map.width = size;
-	close(fd);
 	return (norma(data, filename));
 }
